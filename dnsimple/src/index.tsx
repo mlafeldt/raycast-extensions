@@ -1,5 +1,6 @@
-import { getPreferenceValues, ActionPanel, Action, Icon, List, showToast, Toast } from "@raycast/api";
+import { getPreferenceValues, List, showToast, Toast } from "@raycast/api";
 import { useEffect, useState } from "react";
+import { formatDistanceToNowStrict } from "date-fns";
 
 const { accessToken, accountId } = getPreferenceValues();
 
@@ -56,7 +57,13 @@ export default function Command() {
           title={domain.name}
           accessories={[
             {
-              text: domain.auto_renew ? `Renew by ${domain.expires_on}` : undefined,
+              text: domain.expires_on
+                ? `${domain.auto_renew ? "Renews" : "Expires"} ${formatDistanceToNowStrict(
+                    new Date(domain.expires_on),
+                    { addSuffix: true }
+                  )}`
+                : undefined,
+              tooltip: domain.expires_at ? new Date(domain.expires_at).toString().replace(/ \(.*\)/, "") : undefined,
             },
           ]}
         />
