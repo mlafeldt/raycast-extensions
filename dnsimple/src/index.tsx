@@ -14,7 +14,7 @@ type Domain = {
   registrant_id?: number;
   name: string;
   unicode_name: string;
-  state: "registered" | "hosted"; // TODO: Add more states
+  state: "hosted" | "registered" | "expired";
   auto_renew: boolean;
   private_whois: boolean;
   expires_on?: string;
