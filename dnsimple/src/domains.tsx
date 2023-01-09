@@ -1,4 +1,4 @@
-import { List, showToast, Toast } from "@raycast/api";
+import { List, showToast, Toast, Action, ActionPanel } from "@raycast/api";
 import { useEffect, useState } from "react";
 import { formatDistanceToNowStrict } from "date-fns";
 
@@ -34,6 +34,18 @@ export default function Command() {
           id={domain.id.toString()}
           key={domain.id}
           title={domain.name}
+          actions={
+            <ActionPanel>
+              <Action.OpenInBrowser
+                title="Open Domain in DNSimple"
+                url={`https://dnsimple.com/a/${domain.account_id}/domains/${domain.name}`}
+              ></Action.OpenInBrowser>
+              <Action.OpenInBrowser
+                title="Open Record Editor in DNSimple"
+                url={`https://dnsimple.com/a/${domain.account_id}/domains/${domain.name}/records`}
+              ></Action.OpenInBrowser>
+            </ActionPanel>
+          }
           accessories={[
             {
               text: domain.expires_on

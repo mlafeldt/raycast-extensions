@@ -8,7 +8,7 @@
   "license": "MIT",
   "commands": [
     {
-      "name": "index",
+      "name": "domains",
       "title": "Search Domains",
       "description": "Search your domains",
       "mode": "view"
