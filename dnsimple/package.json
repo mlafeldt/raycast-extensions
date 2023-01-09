@@ -3,7 +3,7 @@
   "name": "dnsimple",
   "title": "DNSimple",
   "description": "View your DNSimple domains",
-  "icon": "command-icon.png",
+  "icon": "logomark-classic.png",
   "author": "mlafeldt",
   "license": "MIT",
   "commands": [
