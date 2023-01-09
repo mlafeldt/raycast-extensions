@@ -1,27 +1,9 @@
-import { getPreferenceValues, List, showToast, Toast } from "@raycast/api";
+import { List, showToast, Toast } from "@raycast/api";
 import { useEffect, useState } from "react";
 import { formatDistanceToNowStrict } from "date-fns";
 
-const { accessToken, accountId } = getPreferenceValues();
-
-// No TS support: https://github.com/dnsimple/dnsimple-node/issues/153
-const DnsimpleClient = require("dnsimple");
-const client = DnsimpleClient({ accessToken });
-
-type Domain = {
-  id: number;
-  account_id: number;
-  registrant_id?: number;
-  name: string;
-  unicode_name: string;
-  state: "hosted" | "registered" | "expired";
-  auto_renew: boolean;
-  private_whois: boolean;
-  expires_on?: string;
-  expires_at?: string;
-  created_at: string;
-  updated_at: string;
-};
+import { client, accountId } from "./dnsimple";
+import type { Domain } from "./dnsimple";
 
 export default function Command() {
   const [state, setState] = useState<{
