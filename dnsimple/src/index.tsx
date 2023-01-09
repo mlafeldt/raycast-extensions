@@ -29,10 +29,11 @@ export default function Command() {
   }>({});
 
   useEffect(() => {
-    const getDomains = async () => {
+    (async () => {
       try {
-        const domains = await client.domains.allDomains(accountId);
-        setState({ domains });
+        setState({
+          domains: await client.domains.allDomains(accountId),
+        });
       } catch (err: any) {
         console.error(err);
         showToast({
@@ -41,12 +42,8 @@ export default function Command() {
         });
         throw new Error("Failed to get domains");
       }
-    };
-
-    getDomains();
+    })();
   }, []);
-
-  console.log(state.domains);
 
   return (
     <List isLoading={!state.domains}>
