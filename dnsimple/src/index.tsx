@@ -1,0 +1,66 @@
+import { getPreferenceValues, ActionPanel, Action, Icon, List, showToast, Toast } from "@raycast/api";
+import { useEffect, useState } from "react";
+
+const { accessToken, accountId } = getPreferenceValues();
+
+// No TS support: https://github.com/dnsimple/dnsimple-node/issues/153
+const DnsimpleClient = require("dnsimple");
+const client = DnsimpleClient({ accessToken });
+
+type Domain = {
+  id: number;
+  account_id: number;
+  registrant_id?: number;
+  name: string;
+  unicode_name: string;
+  state: "registered" | "hosted"; // TODO: Add more states
+  auto_renew: boolean;
+  private_whois: boolean;
+  expires_on?: string;
+  expires_at?: string;
+  created_at: string;
+  updated_at: string;
+};
+
+export default function Command() {
+  const [state, setState] = useState<{
+    domains?: Domain[];
+  }>({});
+
+  useEffect(() => {
+    const getDomains = async () => {
+      try {
+        const domains = await client.domains.allDomains(accountId);
+        setState({ domains });
+      } catch (err: any) {
+        console.error(err);
+        showToast({
+          style: Toast.Style.Failure,
+          title: err.message,
+        });
+        throw new Error("Failed to get domains");
+      }
+    };
+
+    getDomains();
+  }, []);
+
+  console.log(state.domains);
+
+  return (
+    <List isLoading={!state.domains}>
+      {state.domains?.map((domain) => (
+        <List.Item
+          id={domain.id.toString()}
+          key={domain.id}
+          title={domain.name}
+          accessories={[
+            {
+              text: domain.auto_renew ? `Renew by ${domain.expires_on}` : undefined,
+            },
+          ]}
+        />
+      ))}
+    </List>
+  );
+}
