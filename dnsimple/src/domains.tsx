@@ -1,8 +1,8 @@
-import { List, showToast, Toast, Action, ActionPanel } from "@raycast/api";
-import { useEffect, useState } from "react";
+import { Action, ActionPanel, Icon, List, Toast, showToast } from "@raycast/api";
 import { formatDistanceToNowStrict } from "date-fns";
+import { useEffect, useState } from "react";
 
-import { client, accountId } from "./dnsimple";
+import { accountId, client } from "./dnsimple";
 import type { Domain } from "./dnsimple";
 
 export default function Command() {
