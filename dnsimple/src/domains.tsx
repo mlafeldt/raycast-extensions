@@ -43,6 +43,7 @@ export default function Command() {
               <Action.OpenInBrowser
                 title="Open Record Editor in DNSimple"
                 url={`https://dnsimple.com/a/${domain.account_id}/domains/${domain.name}/records`}
+                icon={Icon.List}
               ></Action.OpenInBrowser>
             </ActionPanel>
           }
