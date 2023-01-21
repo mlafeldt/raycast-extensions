@@ -1,10 +1,18 @@
 import { getPreferenceValues } from "@raycast/api";
 
-const { accessToken, accountId } = getPreferenceValues();
+const { accessToken } = getPreferenceValues();
 
 // No TS support: https://github.com/dnsimple/dnsimple-node/issues/153
 const DnsimpleClient = require("dnsimple");
 const client = DnsimpleClient({ accessToken });
+
+type Account = {
+  id: number;
+  email: string;
+  plan_identifier: string;
+  created_at: string;
+  updated_at: string;
+};
 
 type Domain = {
   id: number;
@@ -21,5 +29,5 @@ type Domain = {
   updated_at: string;
 };
 
-export { client, accountId };
-export type { Domain };
+export { client };
+export type { Account, Domain };

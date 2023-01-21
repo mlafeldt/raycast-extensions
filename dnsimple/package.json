@@ -22,20 +22,13 @@
       "title": "Access Token",
       "description": "Your DNSimple user access token",
       "placeholder": "Enter your access token"
-    },
-    {
-      "name": "accountId",
-      "type": "textfield",
-      "required": true,
-      "title": "Account ID",
-      "description": "Your DNSimple account ID",
-      "placeholder": "Enter your account ID"
     }
   ],
   "dependencies": {
     "@raycast/api": "^1.45.2",
     "date-fns": "^2.29.3",
-    "dnsimple": "^6.1.0"
+    "dnsimple": "^6.1.0",
+    "swr": "^2.0.1"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^4.0.0",

@@ -2,10 +2,12 @@ import { Action, ActionPanel, Icon, List, Toast, showToast } from "@raycast/api"
 import { formatDistanceToNowStrict } from "date-fns";
 import { useEffect, useState } from "react";
 
-import { accountId, client } from "./dnsimple";
+import { client } from "./dnsimple";
 import type { Domain } from "./dnsimple";
+import useDnsimple from "./hooks/use-dnsimple";
 
 export default function Command() {
+  const { accounts } = useDnsimple();
   const [state, setState] = useState<{
     domains?: Domain[];
   }>({});
@@ -13,9 +15,11 @@ export default function Command() {
   useEffect(() => {
     (async () => {
       try {
-        setState({
-          domains: await client.domains.allDomains(accountId),
-        });
+        if (accounts) {
+          setState({
+            domains: await client.domains.allDomains(accounts[0]?.id),
+          });
+        }
       } catch (err: any) {
         console.error(err);
         showToast({
@@ -25,7 +29,7 @@ export default function Command() {
         throw new Error("Failed to get domains");
       }
     })();
-  }, []);
+  }, [accounts]);
 
   return (
     <List isLoading={!state.domains}>
