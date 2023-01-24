@@ -6,7 +6,7 @@ const { accessToken } = getPreferenceValues();
 const DnsimpleClient = require("dnsimple");
 const client = DnsimpleClient({ accessToken });
 
-type Account = {
+export type Account = {
   id: number;
   email: string;
   plan_identifier: string;
@@ -14,7 +14,7 @@ type Account = {
   updated_at: string;
 };
 
-type Domain = {
+export type Domain = {
   id: number;
   account_id: number;
   registrant_id?: number;
@@ -29,5 +29,6 @@ type Domain = {
   updated_at: string;
 };
 
-export { client };
-export type { Account, Domain };
+export const getAccounts = (): Promise<Account[]> => client.accounts.listAccounts().then((resp: any) => resp.data);
+
+export const getDomains = (accountId: number): Promise<Domain[]> => client.domains.allDomains(accountId);

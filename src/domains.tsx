@@ -2,9 +2,9 @@ import { Action, ActionPanel, Icon, List, Toast, showToast } from "@raycast/api"
 import { formatDistanceToNowStrict } from "date-fns";
 import { useEffect, useState } from "react";
 
-import { client } from "./dnsimple";
-import type { Domain } from "./dnsimple";
 import useDnsimple from "./hooks/use-dnsimple";
+import { getDomains } from "./lib/dnsimple";
+import type { Domain } from "./lib/dnsimple";
 
 export default function Command() {
   const { accounts } = useDnsimple();
@@ -16,9 +16,7 @@ export default function Command() {
     (async () => {
       try {
         if (accounts) {
-          setState({
-            domains: await client.domains.allDomains(accounts[0]?.id),
-          });
+          setState({ domains: await getDomains(accounts[0]?.id) });
         }
       } catch (err: any) {
         console.error(err);
