@@ -4,7 +4,10 @@ const { accessToken } = getPreferenceValues();
 
 // No TS support: https://github.com/dnsimple/dnsimple-node/issues/153
 const DnsimpleClient = require("dnsimple");
-const client = DnsimpleClient({ accessToken });
+const client = DnsimpleClient({
+  accessToken,
+  userAgent: "Raycast",
+});
 
 export type Account = {
   id: number;
