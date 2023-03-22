@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 
-import { getAccounts } from "../lib/dnsimple";
-import type { Account } from "../lib/dnsimple";
+import { type Account, getAccounts } from "../lib/dnsimple";
 import useSharedState from "./use-shared-state";
 
 const useDnsimple = () => {

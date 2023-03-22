@@ -27,7 +27,7 @@
   "dependencies": {
     "@raycast/api": "^1.45.2",
     "date-fns": "^2.29.3",
-    "dnsimple": "^6.1.0",
+    "dnsimple": "^7.0.0",
     "swr": "^2.0.1"
   },
   "devDependencies": {

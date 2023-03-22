@@ -1,37 +1,17 @@
 import { getPreferenceValues } from "@raycast/api";
+import { DNSimple } from "dnsimple";
 
 const { accessToken } = getPreferenceValues();
 
-// No TS support: https://github.com/dnsimple/dnsimple-node/issues/153
-const DnsimpleClient = require("dnsimple");
-const client = DnsimpleClient({
+const client = new DNSimple({
   accessToken,
   userAgent: "Raycast",
 });
 
-export type Account = {
-  id: number;
-  email: string;
-  plan_identifier: string;
-  created_at: string;
-  updated_at: string;
-};
+// Unfortunately, the dnsimple package doesn't export any types yet
+export type Account = Awaited<ReturnType<typeof client.accounts.listAccounts>>["data"][0];
+export type Domain = Awaited<ReturnType<typeof client.domains.listDomains>>["data"][0];
 
-export type Domain = {
-  id: number;
-  account_id: number;
-  registrant_id?: number;
-  name: string;
-  unicode_name: string;
-  state: "hosted" | "registered" | "expired";
-  auto_renew: boolean;
-  private_whois: boolean;
-  expires_on?: string;
-  expires_at?: string;
-  created_at: string;
-  updated_at: string;
-};
+export const getAccounts = (): Promise<Account[]> => client.accounts.listAccounts().then((resp) => resp.data);
 
-export const getAccounts = (): Promise<Account[]> => client.accounts.listAccounts().then((resp: any) => resp.data);
-
-export const getDomains = (accountId: number): Promise<Domain[]> => client.domains.allDomains(accountId);
+export const getDomains = (accountId: number): Promise<Domain[]> => client.domains.listDomains.collectAll(accountId);
