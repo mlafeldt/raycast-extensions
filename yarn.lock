@@ -551,10 +551,10 @@ dir-glob@^3.0.1:
   dependencies:
     path-type "^4.0.0"
 
-dnsimple@^6.1.0:
-  version "6.2.0"
-  resolved "https://registry.yarnpkg.com/dnsimple/-/dnsimple-6.2.0.tgz#c2d231d4d62158a73b715a501134bdb5307e4cee"
-  integrity sha512-POV3jzZ1gEfecyftR64hw3Mw1kJW5FIbojQ2fChzbR4fiqheTzhCm+Gc6B6OXGK53WHftFFUfBTyLQsRK6N2qA==
+dnsimple@^7.0.0:
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/dnsimple/-/dnsimple-7.1.0.tgz#765d5e34be25f32e12f38658e60d38e00efadfe8"
+  integrity sha512-kry52K/XFGd+uTc9lv2m7yBnpc0q8ewbeb0414nhLp+OF8O9SiO5/BuPQ3ufvrPFmGrcc6fWqdDMw1hoSfHrwg==
 
 doctrine@^3.0.0:
   version "3.0.0"
